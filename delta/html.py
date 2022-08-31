@@ -317,4 +317,7 @@ def render(delta, method='html', pretty=False):
     result = "".join(
         html.tostring(child, method=method, with_tail=True, encoding='unicode', pretty_print=pretty) 
         for child in root)
+    cutoff = result.find('</template>')
+    if cutoff > 0:
+        result = result[:cutoff]
     return result

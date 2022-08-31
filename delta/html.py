@@ -275,8 +275,13 @@ def code_block(root, op):
 
 ### Processors ###
 def append_op(root, op):
+    oldroot = root
     for fmt in Format.all:
         root = fmt(root, op)
+        if isinstance(root, str):
+            print('unexpected scenario', root, oldroot, op)
+            root = oldroot
+        oldroot = root
 
     text = op.get('insert')
     if isinstance(text, str) and text:
